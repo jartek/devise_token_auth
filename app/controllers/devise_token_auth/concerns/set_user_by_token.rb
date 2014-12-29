@@ -64,7 +64,7 @@ module DeviseTokenAuth::Concerns::SetUserByToken
       auth_header = {}
 
       Rails.logger.info "Change headers: "
-      Rails.logger.info not DeviseTokenAuth.change_headers_on_each_request
+      Rails.logger.info !DeviseTokenAuth.change_headers_on_each_request
       Rails.logger.info "*"*100
 
       if not DeviseTokenAuth.change_headers_on_each_request
