@@ -149,6 +149,10 @@ module DeviseTokenAuth::Concerns::User
       updated_at: Time.now
     }
 
+    Rails.logger.info "*"*100
+    Rails.logger.info self.tokens[client_id]
+    Rails.logger.info "*"*100
+
     self.save!
 
     return build_auth_header(token, client_id)
@@ -162,13 +166,19 @@ module DeviseTokenAuth::Concerns::User
     # must be cast as string or headers will break
     expiry = self.tokens[client_id]['expiry'].to_s
 
-    return {
+    hash = {
       "access-token" => token,
       "token-type"   => "Bearer",
       "client"       => client_id,
       "expiry"       => expiry,
       "uid"          => self.uid
     }
+
+    Rails.logger.info "*"*100
+    Rails.logger.info hash
+    Rails.logger.info "*"*100
+
+    return hash
   end
 
 
