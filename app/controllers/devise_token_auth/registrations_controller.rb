@@ -38,6 +38,8 @@ module DeviseTokenAuth
             })
 
           else
+            # email auth has been bypassed, authenticate user
+            @client_id = SecureRandom.urlsafe_base64(nil, false)
             update_auth_header
           end
 
