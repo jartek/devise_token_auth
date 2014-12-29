@@ -149,9 +149,9 @@ module DeviseTokenAuth::Concerns::User
       updated_at: Time.now
     }
 
-    Rails.logger.info "*"*100
+    Rails.logger.info "#"*100
     Rails.logger.info self.tokens[client_id]
-    Rails.logger.info "*"*100
+    Rails.logger.info "#"*100
 
     self.save!
 
