@@ -48,8 +48,6 @@ module DeviseTokenAuth
             }
 
             @resource.save!
-
-            update_auth_header
           end
 
           render json: {
