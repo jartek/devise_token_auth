@@ -20,15 +20,7 @@ module DeviseTokenAuth
       @resource = resource_class.where(q).first
 
       if @resource and valid_params? and @resource.valid_password?(resource_params[:password]) and @resource.confirmed?
-        # create client id
-        @client_id = SecureRandom.urlsafe_base64(nil, false)
-        @token     = SecureRandom.urlsafe_base64(nil, false)
-
-        @resource.tokens[@client_id] = {
-          token: BCrypt::Password.create(@token),
-          expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
-        }
-        @resource.save
+        @resource.create_new_auth_token
 
         sign_in(:user, @resource, store: false, bypass: false)
 
