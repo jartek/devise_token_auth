@@ -48,7 +48,9 @@ module DeviseTokenAuth::Concerns::SetUserByToken
 
 
   def update_auth_header
-
+    Rails.logger.info "~"*100
+    Rails.logger.info @resource and @resource.valid? and @client_id
+    Rails.logger.info "~"*100
     # cannot save object if model has invalid params
     return unless @resource and @resource.valid? and @client_id
 
