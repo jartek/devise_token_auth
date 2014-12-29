@@ -20,7 +20,7 @@ module DeviseTokenAuth
       @resource = resource_class.where(q).first
 
       if @resource and valid_params? and @resource.valid_password?(resource_params[:password]) and @resource.confirmed?
-        @resource.create_new_auth_token
+        # @resource.create_new_auth_token
 
         sign_in(:user, @resource, store: false, bypass: false)
 
