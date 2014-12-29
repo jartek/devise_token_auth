@@ -50,7 +50,9 @@ module DeviseTokenAuth::Concerns::SetUserByToken
   def update_auth_header
     # cannot save object if model has invalid params
     return unless @resource and @resource.valid? and @client_id
-
+    Rails.logger.info "*"*100
+    Rails.logger.info 'are you here'
+    Rails.logger.info "*"*100
     # Lock the user record during any auth_header updates to ensure
     # we don't have write contention from multiple threads
     @resource.with_lock do
