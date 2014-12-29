@@ -26,7 +26,7 @@ module DeviseTokenAuth::Concerns::User
     before_create :sync_uid
 
     # get rid of dead tokens
-    before_save :destroy_expired_tokens
+    # before_save :destroy_expired_tokens
 
 
     # don't use default devise email validation
