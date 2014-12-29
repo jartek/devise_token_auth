@@ -48,9 +48,6 @@ module DeviseTokenAuth::Concerns::SetUserByToken
 
 
   def update_auth_header
-    Rails.logger.info "~"*100
-    Rails.logger.info @resource and @resource.valid? and @client_id
-    Rails.logger.info "~"*100
     # cannot save object if model has invalid params
     return unless @resource and @resource.valid? and @client_id
 
@@ -61,8 +58,14 @@ module DeviseTokenAuth::Concerns::SetUserByToken
       # determine batch request status after request processing, in case
       # another processes has updated it during that processing
       @is_batch_request = is_batch_request?(@resource, @client_id)
-
+      Rails.logger.info "Batch request: "
+      Rails.logger.info @is_batch_request
+      Rails.logger.info "*"*100
       auth_header = {}
+
+      Rails.logger.info "Change headers: "
+      Rails.logger.info not DeviseTokenAuth.change_headers_on_each_request
+      Rails.logger.info "*"*100
 
       if not DeviseTokenAuth.change_headers_on_each_request
         auth_header = @resource.build_auth_header(@token, @client_id)
@@ -77,6 +80,8 @@ module DeviseTokenAuth::Concerns::SetUserByToken
 
       # update Authorization response header with new token
       else
+        Rails.logger.info "Create auth"
+        Rails.logger.info "*"*100
         auth_header = @resource.create_new_auth_token(@client_id)
 
         # update the response header
